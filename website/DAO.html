@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polar Bear Development</title>
+    <link rel="icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="./DAO.css">
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"
+    integrity="sha512-5erpERW8MxcHDF7Xea9eBQPiRtxbse70pFcaHJuOhdEBQeAxGQjUwgJbuBDWve+xP/u5IoJbKjyJk50qCnMD7A=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+</head>
+<body>
+
+    <div class=navbar>
+
+
+        <div class=container1>
+
+
+            <ul class='primary-nav'> 
+                <a class='logo' href="#">PolarBear NFT</a>
+                
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./index.html#roadmapheading">Roadmap</a></li>
+                <li class="DAO"><a href="./DAO.html">DAO</a></li>
+                <li><a href="./index.html#aboutus">About Us</a></li>
+            </ul>
+            
+        </div>
+        <button id="connectwallet" onclick="loginWithEth()" class="connect-wallet">Connect Wallet</button>
+    </div>
+
+    <section>
+        <p id='Coming' class="coming">Coming Soon...</p>
+        <p id='conadd' class="conadd"></p>
+
+        <ul>
+            <input class="input" id="input" type="text" value='' />
+            <li><button class='button1' onclick="mint()">mint</button></li>
+            <li><button class='button1' onclick="reserveMint()">reserveMint</button></li>
+
+            <li><button class='button1' onclick="setEnableMintTrue()">setEnableMintTrue</button></li>
+            <li><button class='button1' onclick="setEnableMintFalse()">setEnableMintFalse</button></li>
+            
+            <li><button class='button1' onclick="setOnlyWLTrue()">setOnlyWLTrue</button></li>
+            <li><button class='button1' onclick="setOnlyWLFalse()">setOnlyWLFalse</button></li>
+
+            <li><button class='button1' onclick="addWLBatch()">addWLBatch</button></li>
+            <li><button class='button1' onclick="addWL()">addWL</button></li>
+            <li><button class='button1' onclick="removeWLBatch()">removeWLBatch</button></li>
+            <li><button class='button1' onclick="removeWL()">removeWL</button></li>
+
+            <li><button class='button1' onclick="adjustTokenURIBatch()">adjustTokenURIBatch</button></li>
+            <li><button class='button1' onclick="adjustTokenURI()">adjustTokenURI</button></li>
+
+            <li><button class='button1' onclick="setRP()">setRP</button></li>
+            <li><button class='button1' onclick="setRPBatch()">setRPBatch</button></li>
+
+            <li><button class='button2' onclick="withdraw()">withdraw</button></li>
+            <li><button class='button2' onclick="withdrawAll()">withdrawAll</button></li>
+
+            <li><button class='button3' onclick="transferOwnership()">transferOwnership</button></li>
+            <li><button class='button3' onclick="balanceOf()">balanceOf</button></li>
+
+            <li><button class='button3' onclick="owner()">owner</button></li>
+            <li><button class='button3' onclick="name()">name</button></li>
+            <li><button class='button3' onclick="tokenURI()">tokenURI</button></li>
+            <li><button class='button3' onclick="symbol()">symbol</button></li>
+
+
+            <li><button class='button3' onclick="preSaleMintFee()">preSaleMintFee</button></li>
+            <li><button class='button3' onclick="pubSaleMintFee()">pubSaleMintFee</button></li>
+
+            <li><button class='button3' onclick="maxSupply()">maxSupply</button></li>
+            <li><button class='button3' onclick="preSaleSupply()">preSaleSupply</button></li>
+
+            <li><button class='button3' onclick="preSaleLimit()">preSaleLimit</button></li>
+            <li><button class='button3' onclick="pubSaleLimit()">pubSaleLimit</button></li>
+
+            <li><button class='button3' onclick="reserve()">reserve</button></li>
+            <li><button class='button3' onclick="enableMint()">enableMint</button></li>
+
+            <li><button class='button3' onclick="onlyWhiteListed()">onlyWhiteListed</button></li>
+            <li><button class='button3' onclick="isWhitelisted()">isWhitelisted</button></li>
+
+            <li><button class='button3' onclick="addressTotalMintCount()">addressTotalMintCount</button></li>
+            <li><button class='button3' onclick="reserveTotalMintCount()">reserveTotalMintCount</button></li>
+
+
+
+        </ul>
+
+
+    </section>
+</body>
+<script>
+
+    const CONTRACT_ADDRESS = "0xB8Eeb43d9cE38B7161429cB6ED3889Cc6F5BD6dc"
+    document.getElementById("conadd").innerText = CONTRACT_ADDRESS
+    window.userAddress = null
+  
+  
+  
+    async function loginWithEth(){
+        if(window.ethereum) {
+            window.web3 = new Web3(ethereum);
+            try {
+              await window.ethereum.request({method: 'eth_requestAccounts'})
+  
+              const accounts = await web3.eth.getAccounts();
+              window.userAddress = accounts[0]
+              window.localStorage.setItem('userAddress', accounts[0])
+              var accountID_front = accounts[0].slice(0,5);
+              var accountID_last = accounts[0].slice(38,42);
+              document.getElementById('connectwallet').innerText= accountID_front +'...'+ accountID_last;
+            
+  
+  
+  
+            } catch (e){
+                console.error(e.message)
+                alert(e.message)
+            }
+        } else {
+            alert("MetaMask is not installed.")
+        }
+    }
+  
+  
+  
+  
+    async function mint(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const addWhitelistUsers = await contract.methods.mint(document.getElementById('input').value).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function reserveMint(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const addWhitelistUsers = await contract.methods.reserveMint(document.getElementById('input').value).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    //enable mint
+    async function setEnableMintTrue(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const setEnableMintTrue = await contract.methods.setEnableMint(true).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function setEnableMintFalse(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const setEnableMintFalse = await contract.methods.setEnableMint(false).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+
+
+    //only whitelist
+    async function setOnlyWLTrue(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const setOnlyWL = await contract.methods.setOnlyWL(true).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+    async function setOnlyWLFalse(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const setOnlyWLFalse = await contract.methods.setOnlyWL(false).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+
+    //whitelist
+    async function addWLBatch(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const addWLBatch = await contract.methods.addWLBatch(["0x917676910af0d32FBD8f4577e8ccdda8f8A02f82","0x70D4a5d5abE77d6bC14a195f1844b5C5eB721a75","0x8d8AC01B3508Ca869cB631Bb2977202Fbb574a0d","0xE9b15a2D396B349ABF60e53ec66Bcf9af262D449"]).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function addWL(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const addWL = await contract.methods.addWL("0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B").send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function removeWLBatch(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const removeWLBatch = await contract.methods.removeWLBatch(["0xeC88381602b2ea9BfC959984f0F33495282bFf0B", "0x85bec784ff48f4361f506E06d2e3aEaD6369631E","0xC750536aa1Fca53444244823Ea2ae4b976682ac2"]).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+    async function removeWL(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const removeWL = await contract.methods.removeWL("0xeC88381602b2ea9BfC959984f0F33495282bFf0B").send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+    
+  
+    //URI
+    async function adjustTokenURIBatch(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const adjustAllTokenURI_IPFS = await contract.methods.adjustTokenURIBatch(document.getElementById('input').value).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function adjustTokenURI(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const adjustTokenURI = await contract.methods.adjustTokenURI().send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+
+    //royalty
+    async function setRP(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const setRP = await contract.methods.setRP().send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function setRPBatch(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const setRPBatch = await contract.methods.setRPBatch(document.getElementById('input').value).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+
+    //withdraw
+    async function withdraw(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const withdraw = await contract.methods.withdraw(document.getElementById('input').value).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+
+    async function withdrawAll(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const withdrawAll = await contract.methods.withdrawAll().send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+
+
+
+
+    //native erc721 fucntions
+    async function transferOwnership(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const transferOwnership = await contract.methods.transferOwnership(document.getElementById('input').value).send({from: window.userAddress})
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function balanceOf(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const balanceOf = await contract.methods.balanceOf(document.getElementById('input').value).send({from: window.userAddress})
+        document.getElementById('Coming').innerHTML = balanceOf
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function owner(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const owner = await contract.methods.owner.call().call()
+        document.getElementById('Coming').innerHTML = owner
+
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function name(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const name = await contract.methods.name.call().call()
+        document.getElementById('Coming').innerHTML = name
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function tokenURI(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const tokenURI = await contract.methods.tokenURI(document.getElementById('input').value).send({from: window.userAddress})
+        document.getElementById('Coming').innerHTML = tokenURI
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function symbol(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const symbol = await contract.methods.symbol.call().call()
+        document.getElementById('Coming').innerHTML = symbol
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+
+    //variables
+
+    
+    async function preSaleMintFee(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const preSaleMintFee = await contract.methods.preSaleMintFee.call().call()
+        document.getElementById('Coming').innerHTML = preSaleMintFee
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function pubSaleMintFee(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const pubSaleMintFee = await contract.methods.pubSaleMintFee.call().call()
+        document.getElementById('Coming').innerHTML = pubSaleMintFee
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function maxSupply(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const maxSupply = await contract.methods.maxSupply.call().call()
+        document.getElementById('Coming').innerHTML = maxSupply
+
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function preSaleSupply(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const preSaleSupply = await contract.methods.preSaleSupply.call().call()
+        document.getElementById('Coming').innerHTML = preSaleSupply
+
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function preSaleLimit(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const preSaleLimit = await contract.methods.preSaleLimit.call().call()
+        document.getElementById('Coming').innerHTML = preSaleLimit
+
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function pubSaleLimit(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const pubSaleLimit = await contract.methods.pubSaleLimit.call().call()
+        document.getElementById('Coming').innerHTML = pubSaleLimit
+
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function reserve(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const reserve = await contract.methods.reserve.call().call()
+        document.getElementById('Coming').innerHTML = reserve
+
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function enableMint(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const enableMint = await contract.methods.enableMint.call().call()
+        document.getElementById('Coming').innerHTML = enableMint
+
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function onlyWhiteListed(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const onlyWhiteListed = await contract.methods.onlyWhiteListed.call().call()
+        document.getElementById('Coming').innerHTML = onlyWhiteListed
+
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function isWhitelisted(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const isWhitelisted = await contract.methods.isWhitelisted.call().call()
+        document.getElementById('Coming').innerHTML = isWhitelisted
+
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function addressTotalMintCount(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const addressTotalMintCount = await contract.methods.addressTotalMintCount.call(window.userAddress).call()
+        document.getElementById('Coming').innerHTML = addressTotalMintCount
+
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    async function reserveTotalMintCount(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      try{
+        const reserveTotalMintCount = await contract.methods.reserveTotalMintCount.call(window.userAddress).call()
+        document.getElementById('Coming').innerHTML = reserveTotalMintCount
+
+      }catch(e){
+      console.error(e.message)
+      alert(e.message)
+      }
+    }
+
+    
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+  
+
+ 
+  
+      
+  
+  
+  
+    
+  
+    window.ABI = [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "approved",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Approval",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "approved",
+          "type": "bool"
+        }
+      ],
+      "name": "ApprovalForAll",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "addWL",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_addresses",
+          "type": "address[]"
+        }
+      ],
+      "name": "addWLBatch",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "addressTotalMintCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_tokenID",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_URI",
+          "type": "string"
+        }
+      ],
+      "name": "adjustTokenURI",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_URICID",
+          "type": "string"
+        }
+      ],
+      "name": "adjustTokenURIBatch",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "approve",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "enableMint",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getApproved",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        }
+      ],
+      "name": "isApprovedForAll",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "isWhitelisted",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "maxSupply",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_mintAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "mint",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "name",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "onlyWhiteListed",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "ownerOf",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "preSaleFee",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "preSaleLimit",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "preSaleSupply",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pubSaleFee",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pubSaleLimit",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "removeWL",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_addresses",
+          "type": "address[]"
+        }
+      ],
+      "name": "removeWLBatch",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "reserve",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_reserveMintAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "reserveMint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "reserveTotalMintCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_salePrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "royaltyInfo",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "receiver",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "royaltyAmount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "safeTransferFrom",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_data",
+          "type": "bytes"
+        }
+      ],
+      "name": "safeTransferFrom",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "approved",
+          "type": "bool"
+        }
+      ],
+      "name": "setApprovalForAll",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "_state",
+          "type": "bool"
+        }
+      ],
+      "name": "setEnableMint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "_state",
+          "type": "bool"
+        }
+      ],
+      "name": "setOnlyWL",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_newRoyaltyPermill",
+          "type": "uint256"
+        }
+      ],
+      "name": "setRP",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_newRoyaltyPermill",
+          "type": "uint256"
+        }
+      ],
+      "name": "setRPBatch",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "symbol",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "tokenURI",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "transferFrom",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdrawAll",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    }
+  ]
+  
+  </script>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SosoBear NFT</title>
+    <link rel="icon" href="./logo/logo.png" />
+    <link rel="stylesheet" href="./index.css">
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/9.6.6/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/9.6.6/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/9.6.6/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/9.6.6/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/9.6.6/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/9.6.6/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/9.6.6/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/9.6.6/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/9.6.6/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/9.6.6/firebase-performance-compat.js"></script>
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"
+    integrity="sha512-5erpERW8MxcHDF7Xea9eBQPiRtxbse70pFcaHJuOhdEBQeAxGQjUwgJbuBDWve+xP/u5IoJbKjyJk50qCnMD7A=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    ></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+  </head>
+  <body>
+    <div class="homepage">
+      <div class=navbar>
+  
+        <div class="nav-logo">
+          <heading class='logo'>Soso Bear</heading>
+        </div>
+  
+        <div class=container1>
+          <ul class='primary-nav'> 
+            <li><a href="#road-map">Roadmap</a></li>
+            <li><a href="#about-us">About Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><button id="connectwallet" onclick="loginWithEth()" class="connect-wallet">Connect Wallet</button></li>
+          </ul>
+        </div>
+  
+      </div>
+  
+      <div class="mint">
+        <div class="heading1">
+          <heading>Mint your <span class="heading1-polarbear">Polar Bear</span> <br>to get access to</br><span class="heading1-exclusive">EXCULSIVE</span> content</heading>
+          
+          <ul>
+            <li><a href="#"><img src="./logo/opensea.png" alt=""></a></li>
+            <li><a href="#"><img src="./logo/discord.png" alt=""></a></li>
+            <li><a href="#"><img src="./logo/twitter.png" alt=""></a></li>
+            <li><a href="#"><img src="./logo/ig.png" alt=""></a></li>
+          </ul>
+          
+        </div>
+  
+        <div id='mintqty' class="mint-qty">
+          <img class="hero-img" src="./img/hero-img.png" alt="hero-img">
+          <p class="quantity"></p>
+  
+          <ul id="mint-qty-math">
+            <li><button id="minus" class="minus" onclick="minus()">-</button></li>
+            <li><input readonly class="input" id="input" type="text" value="1"/></li>
+            <li><button id="plus" class="plus" onclick="add()">+</button></li>
+          </ul>
+  
+          <button id="mintbtn" class="mint-btn" onclick="mintNFT()">Mint</button>
+  
+        </div>
+        
+      </div>
+  
+      <div class="description-container">
+        <p class="description-text">As global warming taking effect, the homeland of thousands polar bears are being destroyed. A group of 7777 polar bears have decided to leave the North Pole, and immigrate to the Metaverse to rise the awareness on the North Pole, they are unite, friendly, and heroic. Each polar bears is unique, with different hairstyles, cool expressions, clothes, hats. They are ready to play at the Winter sports arena of the metaverse.</p>
+      </div>
+  
+    </div>
+  
+    <div class="roadmap" id="road-map">
+      <div class="container3">
+        <heading>Roadmap</heading>
+        <p class="35%">25%&nbsp;&nbsp;Give away from the supply reserved by the official wallet to holders.</p>
+        <p class="75%">75%&nbsp;&nbsp;A part of funds that are raised will be held in the polar bears Community wallet and will be used for the sole purpose of charity and marketing activities.</p>
+        <p class="100%">100%&nbsp;&nbsp;Sandbox 3x3 land purchased -Build a snow mountain for ski racing -More information to come.</p>
+        <p class="110%">110%&nbsp;&nbsp;3D polar bears are coming for the metaverse in 2022…</p>
+        <p class="120%">120%&nbsp;&nbsp;Surprise for our bear skiers.</p>
+        <p class="...">...</p>
+        
+      </div>
+    </div>
+  
+  
+    <div class="aboutus" id="about-us">
+  
+      <heading>About Us</heading>
+      <ul>
+        <li>
+          <div class="lio">
+            <img class="lio-avatar" src="./about-us/biglio.jpg" alt="">
+            <p>Lio<br>Dev</br></p>
+          </div>
+        </li>
+  
+        <li>
+          <div class="santi">
+            <img class="santi-avatar" src="./about-us/santi.jpg" alt="">
+            <p>Santi<br>Marketing</br></p>
+          </div>
+        </li>
+  
+  
+        <li>    
+          
+          <div class="melo">
+          <img class="melo-avatar" src="./about-us/melo.jpg" alt="">
+          <p>Melo<br>Artist</br></p>
+        </div>
+  
+        </li>
+      </ul>
+      
+      
+  
+  
+  
+  
+    </div>
+  
+  
+  </body>
+  <script>
+
+
+    const CONTRACT_ADDRESS = ""
+    window.userAddress = null
+    const maxMintAmount = 1
+    const mintFees = null
+  
+  
+    async function loginWithEth(){
+      if(window.ethereum) {
+          window.web3 = new Web3(window.ethereum);
+          try {
+            await window.ethereum.request({method: 'eth_requestAccounts'})
+  
+            const accounts = await web3.eth.getAccounts();
+            window.userAddress = accounts[0]
+            window.localStorage.setItem('userAddress', accounts[0])
+  
+            var accountID_front = accounts[0].slice(0,5);
+            var accountID_last = accounts[0].slice(38,42);
+            document.getElementById('connectwallet').innerText= accountID_front +'...'+ accountID_last;
+            
+            const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+            var maxMintAmount = await contract.methods.remainingMintAmount.call().call()
+            var mintFees = await contract.methods.mintFees.call().call()
+            window.localStorage.setItem('mintFees', mintFees)
+            window.localStorage.setItem('maxMintAmount', maxMintAmount)
+  
+            const _isWhiteListed = await contract.methods.isWhitelisted(window.userAddress).call({from: window.userAddress})
+  
+            document.getElementById("mint-qty-math").style.display="block"
+  
+            if (_isWhiteListed) {
+              alert('Congratulations! You are on whitelist.')
+  
+              
+            } else{
+              alert('Sorry, you are not on the whitelist.')
+            }
+  
+  
+  
+          } catch (e){
+            console.error(e.message)
+            alert(e.message)
+          }
+  
+      } else {
+        alert("MetaMask is not installed.")
+      }
+  
+    
+    } 
+  
+  
+  
+  
+    async function mintNFT(){
+      const contract = new window.web3.eth.Contract(window.ABI, CONTRACT_ADDRESS)
+      const _enableMint = await contract.methods.enableMint.call().call()
+      const _isWhiteListed = await contract.methods.isWhitelisted(window.userAddress).call({from: window.userAddress})
+  
+      if (_enableMint){
+        if (!_isWhiteListed){
+          try{
+          const _mintAmount = document.getElementById('input').value
+          const _mint = await contract.methods.mint(_mintAmount).send({from : window.userAddress })
+          alert("Minting...please wait.")
+          alert(`NFT minted! It can take a few minuts to show up on opensea.`);
+          }catch(e){
+          console.error(e.message)
+          alert(e.message)
+          }
+  
+        }
+      } else{
+        console.log('not')
+      }
+    }
+  
+  
+  
+      
+  
+  
+  
+    function add(){
+      var maxMintAmount=   window.localStorage.getItem('maxMintAmount');
+      var nownumber = document.getElementById("input").value;
+      var newnumber = parseInt(nownumber) + 1;
+      if (newnumber > maxMintAmount){
+        newnumber = maxMintAmount
+      }
+      document.getElementById("input").value = newnumber;
+  
+    }
+  
+    function minus(){
+      var nownumber = document.getElementById("input").value;
+      var newnumber = parseInt(nownumber) - 1;
+      if (nownumber<=1){
+        newnumber = 1;
+      }
+      document.getElementById("input").value = newnumber;
+  
+    }
+  </script>
+  
+</html>

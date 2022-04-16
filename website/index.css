@@ -1,0 +1,366 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: white;
+  font-family: "helvetica neue";
+  margin: 0;
+  padding: 0;
+}
+
+.homepage {
+  background-size: 100% 100%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.navbar {
+  padding-top: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.navbar .nav-logo {
+  color: black;
+  font-size: 36px;
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.navbar .nav-logo .logo-sec {
+  padding: 40px;
+}
+
+.navbar li {
+  display: inline;
+  font-size: 20px;
+  font-weight: 200;
+}
+
+.navbar li:hover {
+  text-decoration: underline;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: black;
+  padding: 1em;
+}
+
+.navbar .connect-wallet {
+  color: #141414;
+  margin-bottom: 10px;
+  margin-left: 40px;
+  padding: 10px 20px 10px 20px;
+  font-size: 18px;
+  border-radius: 10px;
+  background: #ebf0f1;
+  border: none;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 4px 7px 0 #cacaca;
+          box-shadow: 0px 4px 7px 0 #cacaca;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+.navbar .connect-wallet:hover {
+  background-color: #afafaf;
+  opacity: 0.5;
+}
+
+.mint {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 10px 16em 120px 10em;
+}
+
+.mint .heading1 {
+  padding-top: 300px;
+  font-weight: 200;
+  text-align: left;
+  font-size: 50px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  white-space: nowrap;
+}
+
+.mint .heading1 img {
+  width: 20px;
+  margin-left: -40px;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.mint .heading1 img:hover {
+  opacity: 0.65;
+}
+
+.mint .heading1 li {
+  display: inline-block;
+}
+
+.mint .heading1 .heading1-polarbear {
+  font-weight: 600;
+}
+
+.mint .heading1 .heading1-exclusive {
+  font-weight: 500;
+  color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: black;
+}
+
+.mint .hero-img {
+  margin-top: 50px;
+  width: 25em;
+  background-color: white;
+  border-color: black;
+  border-width: 10px;
+}
+
+.mint .mint-qty {
+  text-align: center;
+}
+
+.mint .mint-qty ul {
+  margin-top: -20px;
+  padding-right: 25px;
+  text-decoration: none;
+  display: none;
+}
+
+.mint .mint-qty li {
+  display: inline;
+  font-size: 30px;
+  font-weight: 200;
+}
+
+.mint .mint-qty .input {
+  font-size: 20px;
+  height: 48px;
+  width: 120px;
+  text-align: center;
+  background: transparent;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.mint .mint-qty .minus {
+  font-size: 20px;
+  background: transparent;
+  border-radius: 10px 10px 10px 10px;
+  border-width: 0px;
+  margin-right: -10px;
+  height: 50px;
+  width: 40px;
+}
+
+.mint .mint-qty .minus:hover {
+  background: #e2e2e2;
+}
+
+.mint .mint-qty .plus {
+  font-size: 20px;
+  height: 50px;
+  width: 40px;
+  background: transparent;
+  border-radius: 10px 10px 10px 10px;
+  border-width: 0px;
+  margin-left: -10px;
+}
+
+.mint .mint-qty .plus:hover {
+  background: #e2e2e2;
+}
+
+.mint .mint-qty .mint-btn {
+  margin-left: 10px;
+  font-size: 20px;
+  color: #08132c;
+  padding: 15px 30px 15px 30px;
+  background: #ebf0f1;
+  border-radius: 10px;
+  border-width: 0px;
+  text-align: center;
+  font-weight: 500;
+  opacity: 0.8;
+  -webkit-box-shadow: 0px 4px 7px 0 #cacaca;
+          box-shadow: 0px 4px 7px 0 #cacaca;
+}
+
+.mint .mint-qty .mint-btn:hover {
+  background-color: #afafaf;
+  opacity: 0.5;
+}
+
+.description-container {
+  padding: 15em;
+}
+
+.description-text {
+  font-size: 25px;
+  color: #2c2c2c;
+  letter-spacing: 1.1px;
+  line-height: 1.4;
+  background: #f8f8f8;
+  padding: 40px 40px 40px 60px;
+  border-radius: 30px;
+  -webkit-box-shadow: 0px 4px 7px 0 #cacaca;
+          box-shadow: 0px 4px 7px 0 #cacaca;
+}
+
+.roadmap {
+  padding-bottom: 3em;
+  background: white;
+}
+
+.roadmap .container3 {
+  padding: 5em 10em;
+  font-size: 1.5em;
+}
+
+.roadmap .container3 heading {
+  text-align: center;
+  font-size: 100px;
+}
+
+.roadmap .container3 p {
+  margin-top: 3em;
+  padding: 1.3em;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 4px 7px 0 #cacaca;
+          box-shadow: 0px 4px 7px 0 #cacaca;
+  background: #ebf0f1;
+}
+
+.aboutus {
+  padding: 4em 10em;
+  background: #8db0c5;
+}
+
+.aboutus ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.aboutus ul li {
+  display: inline;
+}
+
+.aboutus ul br {
+  font-size: 1px;
+}
+
+.aboutus heading {
+  padding-left: .5em;
+  padding-bottom: 1em;
+  font-size: 100px;
+  display: block;
+  white-space: nowrap;
+}
+
+.aboutus img {
+  width: 10em;
+}
+
+.aboutus .lio p {
+  text-align: center;
+}
+
+.aboutus .santi p {
+  text-align: center;
+}
+
+.aboutus .melo p {
+  text-align: center;
+}
+
+@media only screen and (max-width: 990px) {
+  .logo-sec {
+    padding: 0px !important;
+  }
+  .mint {
+    padding: 2em;
+    text-align: center;
+  }
+  .heading1 {
+    padding-top: 4em  !important;
+    font-size: 50px !important;
+  }
+  .heading1 ul {
+    margin: 0;
+  }
+  .roadmap heading {
+    font-size: 3em !important;
+  }
+  .roadmap .container3 {
+    font-size: 15px;
+  }
+  .primary-nav a {
+    display: none;
+  }
+  .mint {
+    display: block;
+  }
+  .description-container {
+    padding: 2.5em;
+  }
+  .container3 {
+    padding: 1.8em !important;
+  }
+  .description-text {
+    font-size: 15px;
+    padding: 30px;
+  }
+  .aboutus {
+    padding: auto;
+  }
+  .aboutus p {
+    padding-bottom: 40px;
+  }
+  .aboutus ul {
+    display: block;
+    text-align: center;
+  }
+  .aboutus li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .aboutus heading {
+    font-size: 4em !important;
+    margin-left: -40px;
+  }
+  .aboutus img {
+    width: 10em;
+    padding: 0em;
+  }
+}
+/*# sourceMappingURL=index.css.map */

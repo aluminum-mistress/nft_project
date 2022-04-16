@@ -1,0 +1,375 @@
+html{
+    scroll-behavior: smooth;
+  
+}
+body{
+    background: white;
+    font-family: "helvetica neue";
+    margin: 0;
+    padding: 0;
+}
+.homepage{
+    background-size: 100% 100%;
+    user-select: none;
+
+}
+
+.navbar{
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    display: flex;
+    justify-content: space-between;
+
+    .nav-logo{
+        color: black;
+        font-size: 36px;
+        text-decoration: none;
+        font-weight: 500;
+        white-space: nowrap;
+
+
+       .logo-sec{
+           padding: 40px;
+       }
+    }
+
+    li{
+        display: inline;
+        font-size: 20px;
+        font-weight: 200;
+    }
+    li:hover{
+        text-decoration: underline;
+    }
+    
+    a{
+        text-decoration: none;
+        color: black;
+        padding: 1em;
+    }
+
+    .connect-wallet{
+        color: rgb(20, 20, 20);
+        margin-bottom: 10px;
+        margin-left: 40px;
+        padding:10px 20px 10px 20px;
+        font-size: 18px;
+        border-radius: 10px;
+        background: rgb(235, 240, 241);
+        border: none;
+        cursor: pointer;
+        box-shadow: 0px 4px 7px 0 rgb(202, 202, 202);
+        opacity: 0.8;
+        white-space: nowrap;
+
+
+
+    }
+    .connect-wallet:hover{
+        background-color: rgb(175, 175, 175);
+            
+        opacity: 0.5;    }
+}
+
+.mint{
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16em 120px 10em;
+    .heading1{
+        padding-top: 300px;
+        font-weight: 200;
+        text-align: left;
+        font-size: 50px;
+        justify-content: space-between;
+        white-space: nowrap;
+        
+
+        img{
+            width: 20px;
+            margin-left: -40px;
+            padding-right:30px;
+            padding-left: 30px;
+        }
+        img:hover{
+            opacity: 0.65;
+        }
+     
+          
+        li {
+            display: inline-block;
+        }
+        .heading1-polarbear{
+            font-weight: 600;
+        }
+        .heading1-exclusive{
+            font-weight: 500;
+            color: white;
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: black;
+        }
+
+
+    }
+    .hero-img{
+        margin-top: 50px;
+        width: 25em;
+        background-color: white;
+        border-color: black;
+        border-width: 10px;
+
+
+    }
+
+    .mint-qty{
+        text-align: center;
+
+
+
+        ul{
+            margin-top: -20px;
+            padding-right: 25px;
+            text-decoration: none;
+            display: none;
+        }
+        li{
+            display: inline;
+            font-size: 30px;
+            font-weight: 200;
+        }
+        .input{
+            font-size: 20px;
+            height: 48px;
+            width: 120px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            user-select: none;
+        }
+
+        .minus{
+            font-size: 20px;
+            background: transparent;
+            border-radius: 10px 10px 10px 10px;
+            border-width: 0px;
+            margin-right: -10px;
+            height: 50px;
+
+            width: 40px;
+        }
+        .minus:hover{
+            background: rgb(226, 226, 226);
+        }
+
+        .plus{
+
+            font-size: 20px;
+            height: 50px;
+            width: 40px;
+            background: transparent;
+            border-radius: 10px 10px 10px 10px;
+            border-width: 0px;
+            margin-left: -10px;
+          
+        }
+        .plus:hover{
+            background: rgb(226, 226, 226);
+        }
+
+    
+        .mint-btn{
+            margin-left: 10px;
+            font-size: 20px;
+            color: rgb(8, 19, 44);
+            padding: 15px 30px 15px 30px;
+            background: rgb(235, 240, 241);
+            border-radius: 10px;
+            border-width: 0px;
+            text-align: center;
+            font-weight: 500;
+            opacity: 0.8;
+            box-shadow: 0px 4px 7px 0 rgb(202, 202, 202);
+        }
+
+        .mint-btn:hover{
+            background-color: rgb(175, 175, 175);
+            
+            opacity: 0.5;
+        }
+    }
+}
+
+.description-container{
+    padding: 15em;
+    
+
+}
+.description-text{
+    font-size: 25px;
+    color: rgb(44, 44, 44);
+    letter-spacing: 1.1px;
+    line-height: 1.4;
+    background: rgb(248, 248, 248);
+    padding: 40px 40px 40px 60px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 7px 0 rgb(202, 202, 202);
+
+}
+
+.roadmap{
+    padding-bottom: 3em;
+    background: rgb(255, 255, 255);
+
+
+    .container3{
+        padding: 5em 10em;
+        font-size: 1.5em;
+
+        heading{
+            text-align: center;
+            font-size: 100px;
+        }
+        p{
+            margin-top: 3em;
+            padding: 1.3em;
+            border-radius: 15px;
+            box-shadow: 0px 4px 7px 0 rgb(202, 202, 202);
+            background: rgb(235, 240, 241);
+
+
+        }
+    }
+}
+
+.aboutus{
+
+
+    padding: 4em 10em;
+    background: rgb(141, 176, 197);
+
+    ul{
+        display: flex;
+        justify-content: space-between;
+        li{
+            display: inline;
+        }
+        br{
+            font-size: 1px;
+        }
+    }
+
+    heading{
+        padding-left:.5em ;
+        padding-bottom: 1em;
+        font-size: 100px;
+        display: block;
+        white-space: nowrap;
+
+
+    }
+    img{
+        width: 10em;
+        
+    }
+    .lio{
+        p{
+            text-align: center;
+            
+        }
+    }
+
+    .santi{
+        p{
+            text-align: center;
+        }
+    }
+
+    .melo{
+        p{
+            text-align: center;
+        }
+    }
+
+
+    
+}
+
+@media only screen and (max-width: 990px) {
+    .logo-sec{
+        padding: 0px !important;
+    }
+
+    .mint{
+        padding: 2em;
+        text-align: center;
+    }
+    
+    .heading1{
+        padding-top:4em  !important;
+    
+        font-size:50px !important ;
+        ul{
+            margin: 0;
+        }
+    }
+    .roadmap{
+        heading{
+            font-size: 3em !important;
+        }
+        .container3{
+            font-size: 15px;
+        }
+    }
+
+
+
+    .primary-nav{
+        a{
+            display: none;
+        }
+    }
+    .mint{
+        display: block;
+    }
+
+    .description-container{
+        padding:2.5em;
+    }
+
+    .container3{
+        padding: 1.8em !important;
+    }
+
+    .description-text{
+        font-size: 15px;
+        padding: 30px;
+    }
+    .aboutus{
+        padding:auto;
+        p{
+            padding-bottom:40px ;
+        }
+        ul{
+            display: block;
+            text-align: center;
+        }
+        li{
+            display: flex;
+        }
+
+        heading{
+            font-size: 4em !important;
+            margin-left: -40px;
+        }
+
+        img{
+            width: 10em;
+            padding: 0em;
+        }
+
+    }
+
+
+}

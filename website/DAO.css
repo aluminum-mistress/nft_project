@@ -1,0 +1,125 @@
+:root {
+  --primary-color: blue;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: white;
+  font-family: "helvetica neue";
+  margin: 0;
+}
+
+.navbar {
+  background: white;
+  place-content: space-between;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.container1 {
+  padding: 1em;
+  display: block;
+}
+
+.logo {
+  font-size: 35px;
+  font-weight: bold;
+  padding-right: 50px;
+  cursor: default;
+}
+
+.primary-nav {
+  list-style-type: none;
+  margin: 0;
+  padding-top: .5em;
+}
+
+.primary-nav a {
+  text-decoration: none;
+  color: black;
+}
+
+.primary-nav li {
+  display: inline;
+  padding: .5em;
+  font-size: 23px;
+  font-weight: 300;
+}
+
+.primary-nav li:hover {
+  opacity: 0.5;
+  text-decoration: underline;
+
+}
+
+
+
+.connect-wallet {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  background: blue;
+  border-color: transparent;
+  border-radius: 30px;
+  padding: 10px 30px;
+  margin-right: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.connect-wallet:hover {
+  opacity: 0.65;
+}
+
+.input{
+  width: 500px;
+}
+.button1{
+  background-color: orange;
+}
+.button2{
+  background-color: red;
+
+}
+.button3{
+  background-color: rgb(0, 217, 255);
+}
+.coming{
+  margin-top: 100px;
+  font-size: 70px;
+  text-align: center;
+  font-weight: bold;
+}
+.conadd{
+  margin-top: 10px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 990px) {
+  a {
+    display: none;
+    position: fixed;
+  }
+  .roadmap-heading {
+    margin-bottom: -50px;
+  }
+  .logo {
+    position: static;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+.coming{
+  font-size: 70px;
+}
+}
